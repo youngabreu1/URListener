@@ -21,37 +21,59 @@ const App = () => {
             id: 3,
             description: 'Playlist',
             typeId: 1,
-            url: 'https://www.youtube.com/watch?v=-uxi6_5cFqw',
+            url: 'https://support.playlistsolutions.com/',
             isActive: true
         }
 
     ];
 
-    const testAudioStream = (streamUrl: string) => {
-        const sound = new Howl({
-            src: [streamUrl],
-            format: ['mp3', 'ogg', 'wav'],
-            html5: true
-        });
-        sound.once('load', () => {
-            console.log(`Stream de áudio ${streamUrl} está funcionando.`);
-        });
+    const [stream, setStream] = useState('')
 
-        sound.once('loaderror', () => {
-            console.log(`Stream de áudio ${streamUrl} não está funcionando.`);
-        });
+    const testAudioStream = () => {
+        var urlChecked:any = []
+        audioStreams.map((stream) => {
+            const sound = new Howl({
+                src: [stream.url],
+                format: ['mp3', 'ogg', 'wav'],
+                html5: true
+            });
+            sound.once('load', () => {
+                console.log(`Stream de áudio ${stream.url} está funcionando.`);
+                setStream(`Stream de áudio ${stream.url} está funcionando.`)
+                urlChecked = {
+                    name: stream.description,
+                    url: stream.url,
+                    active: true
+                }
+            });
+
+            sound.once('loaderror', () => {
+                console.log(`Stream de áudio ${stream.url} não está funcionando.`);
+                <p>Stream de áudio ${stream.url} está funcionando.</p>
+            });
+            
+        })
     };
 
     return (
         <div>
+            <h1>Teste de Streams de Áudio</h1>
+            <button onClick={testAudioStream}>butao</button>
+            <div style={{display: 'flex', width: '100%', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+                Ta aqui:
+                <p>{stream}</p>
+            </div>
+        </div>
+    )
+}
+
+export default App;
+
+{/* <div>
             <h1>Teste de Streams de Áudio</h1>
             {audioStreams.map((stream) => (
                 <div key={stream.url}>
                     <button onClick={() => testAudioStream(stream.url)}>Testar Áudio - {stream.url}</button>
                 </div>
             ))}
-        </div>
-    )
-}
-
-export default App;
+        </div> */}
