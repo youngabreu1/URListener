@@ -24,36 +24,53 @@ const App = () => {
             url: 'https://support.playlistsolutions.com/',
             isActive: true
         }
-
+    
     ];
 
     const [stream, setStream] = useState('')
-
-    const testAudioStream = () => {
-        var urlChecked:any = []
-        audioStreams.map((stream) => {
-            const sound = new Howl({
-                src: [stream.url],
+    var xibas:any
+    const testAudioStream = async ()=> {
+        
+        const streamList = audioStreams.map((item) => {
+            return new Promise(async (resolve) => {
+                type formattedObject = {
+                    name: string;
+                    url: string;
+                    isActive: boolean
+                }
+             
+                const sound = new Howl({
+                src: [item.url],
                 format: ['mp3', 'ogg', 'wav'],
                 html5: true
             });
-            sound.once('load', () => {
-                console.log(`Stream de áudio ${stream.url} está funcionando.`);
-                setStream(`Stream de áudio ${stream.url} está funcionando.`)
-                urlChecked = {
-                    name: stream.description,
-                    url: stream.url,
-                    active: true
-                }
-            });
 
             sound.once('loaderror', () => {
-                console.log(`Stream de áudio ${stream.url} não está funcionando.`);
-                <p>Stream de áudio ${stream.url} está funcionando.</p>
+                let promiseError:formattedObject = ({
+                    name: item.description,
+                    url: item.url,
+                    isActive: false
+                })
+                resolve(promiseError);
             });
+
+            sound.once('load', () => {
+                let promiseTop:formattedObject = ({
+                    name: item.description,
+                    url: item.url,
+                    isActive: true
+                })
+                resolve(promiseTop);
+            });
+
             
+            })
         })
-    };
+        
+        const streamings = await Promise.all(streamList);
+        console.log(streamings);
+    
+        };
 
     return (
         <div>
@@ -61,7 +78,7 @@ const App = () => {
             <button onClick={testAudioStream}>butao</button>
             <div style={{display: 'flex', width: '100%', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
                 Ta aqui:
-                <p>{stream}</p>
+                <p>{}</p>
             </div>
         </div>
     )
