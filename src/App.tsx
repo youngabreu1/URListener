@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Howl } from 'howler';
 
 type Stream =
@@ -100,18 +100,7 @@ const App = () => {
 
     return (
         <div style={{ display: 'flex', height: '100vh', width: '100vw', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-             <div style={{display: 'flex', alignItems:'center',}}>
-                    {
-                    loading?
-                    <div className='loading'>
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                    <div className="bar"></div></div>
-                    :
-                    loading 
-                }
-                </div>
+            
             <div>
                 <h1>Teste de Streams de Áudio</h1>
             </div>
@@ -146,6 +135,18 @@ const App = () => {
                     })}
                 </div>
             </div>
+            <div style={{display: 'flex', alignItems:'center', marginTop:'30px'}}>
+                    {
+                    loading?
+                    <div className='loading'>
+                    <div className="bar"></div>
+                    <div className="bar"></div>
+                    <div className="bar"></div>
+                    <div className="bar"></div></div>
+                    :
+                    loading 
+                }
+                </div>
         </div>
     )
 }
