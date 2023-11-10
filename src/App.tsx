@@ -96,6 +96,26 @@ const App = () => {
             html5: true
         });
         sound.play()
+    const LoadingCheckStreams = () => {
+        return (
+            <div className='loading'>
+                <div className="bar"></div>
+                <div className="bar"></div>
+                <div className="bar"></div>
+                <div className="bar"></div>
+            </div>
+        )
+    }
+
+    const LoadingPlayStreams = () => {
+        return (
+            <div className="loadingsound">
+                <div className="dot"></div>
+                <div className="dot"></div>
+                <div className="dot"></div>
+                <div className="dot"></div>
+            </div>
+        )
     }
 
     return (
@@ -108,45 +128,68 @@ const App = () => {
                 <button style={{ fontFamily: 'Noto Sans', width: '100%', padding: '10px', marginBottom: '20px' }} onClick={testAudioStream}>Clique Aqui!</button>
             </div>
             <div style={{ display: 'flex', width: '450px', height: '250px', backgroundColor: '#333333', boxSizing: 'border-box', borderRadius: '1.5ch', border: '2px solid #404040' }}>
-                <div style={{ fontFamily: 'Noto Sans', paddingLeft: '2px', width: '100%',padding: '10px' }}>
-                    
+                <div style={{ fontFamily: 'Noto Sans', paddingLeft: '2px', width: '100%', padding: '10px' }}>
+
                     {stream?.map((item, index) => {
                         return (
-                            <div key={index} style={{ display: 'flex', width: '100%', justifyContent: 'space-between'}}>
-                                <div>
+                            <div key={index} style={{ display: 'flex', width: '90%', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex' }}>
                                     {
-                                    loading==false?
-                                    item.name:
-                                    loading
-                                    }
-                                </div>
-                                <div>
-                                    {
-                                        item.isActive && loading==false
+                                        item.isActive && loading == false
                                             ?
-                                            <div className="activeLoad" onClick={() => playSound(item.url)} style={{ padding: ' 10px', cursor:'pointer'} }>
+                                            <div className="activeLoad" style={{ padding: ' 10px'}}>
 
                                             </div>
                                             :
                                             <div className="inactiveLoad" style={{ padding: ' 10px' }}></div>
                                     }
+                                    <div>
+                                        {
+                                            loading == false ?
+                                                item.name :
+                                                loading
+                                        }
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className='container' onClick={() => playSound(item.url)} >
+                                        <a href='#' className='playBut'>
+
+
+                                            <svg version="1.1"
+                                                xmlns="http://www.w3.org/2000/svg" xmlns: xlink="http://www.w3.org/1999/xlink" xmlns: a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+                                                x="0px" y="0px" width="35px" height="35px" viewBox="0 0 213.7 213.7" enable-background="new 0 0 213.7 213.7"
+                                                xml: space="preserve">
+
+                                                <polygon className='triangle' id="XMLID_18_" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	73.5,62.5 148.5,105.8 73.5,149.1 "/>
+
+                                                <circle className='circle' id="XMLID_17_" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="106.8" cy="106.8" r="103.3" />
+                                            </svg>
+
+
+
+                                        </a>
+                                    </div>
                                 </div>
                             </div>)
                     })}
                 </div>
             </div>
-            <div style={{display: 'flex', alignItems:'center', marginTop:'30px'}}>
-                    {
-                    loading?
-                    <div className='loading'>
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                    <div className="bar"></div></div>
-                    :
-                    loading 
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '30px' }}>
+                {
+                    loading &&
+                    <LoadingCheckStreams />
                 }
-                </div>
+
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '30px' }}>
+                {
+                    loadingMusic &&
+                    <LoadingPlayStreams />
+                }
+            </div>
         </div>
     )
 }
