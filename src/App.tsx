@@ -45,7 +45,7 @@ const App = () => {
 
     ];
     const [loading, setLoading] = useState<boolean>(false);
-
+    const [loadingMusic, setLoadingMusic] = useState<boolean>(false);
     const [stream, setStream] = useState<PromiseStream[]>([
     ])
     const testAudioStream = async () => {
@@ -92,13 +92,28 @@ const App = () => {
         setStream(streamings)
     };
 
-    function playSound(url:string){
+
+    function playSound(url: string) {
+        setLoadingMusic(true)
         const sound = new Howl({
             src: [url],
             format: ['mp3', 'ogg', 'wav'],
             html5: true
         });
+
+        if (state != null) {
+            state.stop()
+            state = sound
+        }
+        else {
+            state = sound
+        }
+
         sound.play()
+        setLoadingMusic(false)
+
+    }
+
     const LoadingCheckStreams = () => {
         return (
             <div className='loading'>
