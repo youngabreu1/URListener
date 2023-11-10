@@ -16,6 +16,9 @@ type PromiseStream = {
     isActive: boolean
 }
 
+var state: Howl | null = null
+
+
 const App = () => {
     const audioStreams: Stream[] = [
         {
