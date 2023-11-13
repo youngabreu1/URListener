@@ -113,10 +113,27 @@ const App = () => {
         else {
             state = sound
         }
-
         sound.play()
+        setIsPlaying(item.id)
         setLoadingMusic(false)
+    }
 
+    function stopSound(item: PromiseStream) {
+        const sound = new Howl({
+            src: [item.url],
+            format: ['mp3', 'ogg', 'wav'],
+            html5: true
+        });
+
+        if (state != null) {
+            state.stop()
+            state = sound
+        }
+        else {
+            state = sound
+        }
+        sound.stop
+        setIsPlaying(0)
     }
 
     const LoadingCheckStreams = () => {
