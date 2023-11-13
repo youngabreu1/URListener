@@ -169,7 +169,7 @@ body {
   height: calc(var(--uib-size) * 0.17);
   border-radius: 50%;
   background-color: var(--uib-color);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s eae;
 }
 
 .dot:nth-child(1) {
@@ -208,7 +208,7 @@ body {
 }
 
 .circle {
-  stroke: #f8aa28;
+  stroke: greenyellow;
   stroke-dasharray: 650;
   stroke-dashoffset: 650;
   -webkit-transition: all 0.5s ease-in-out;
@@ -223,7 +223,7 @@ body {
     -webkit-transition: all 0.7s ease-in-out;
     stroke-dasharray: 240;
     stroke-dashoffset: 480;
-    stroke: #000;
+    stroke: greenyellow;
     transform: translateY(0) 
    }
   
@@ -233,7 +233,7 @@ body {
     .triangle {
       stroke-dashoffset: 0;
       opacity: 1;
-      stroke: #f8aa28;
+      stroke: greenyellow;
       animation: nudge 0.7s ease-in-out;
       
       @keyframes nudge{
@@ -256,6 +256,67 @@ body {
     }
     
     .circle {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    
+  }
+}
+
+.containerred {
+  width: 100%;
+  text-align: center;
+}
+
+.circlered {
+  stroke: red;
+  stroke-dasharray: 650;
+  stroke-dashoffset: 650;
+  -webkit-transition: all 0.5s ease-in-out;
+  opacity: 0.3;
+}
+
+.playButred {
+  display: inline-block;
+  -webkit-transition: all 0.5s ease;
+  
+  .trianglered {
+    -webkit-transition: all 0.7s ease-in-out;
+    stroke-dasharray: 240;
+    stroke-dashoffset: 480;
+    stroke: red;
+    transform: translateY(0) 
+   }
+  
+  
+  &:hover {
+    
+    .trianglered {
+      stroke-dashoffset: 0;
+      opacity: 1;
+      stroke: red;
+      animation: nudge 0.7s ease-in-out;
+      
+      @keyframes nudge{
+        0% {
+          transform: translateX(0)  
+        }
+        30% {
+          transform: translateX(-5px)
+        }
+        50% {
+          transform: translateX(5px)
+        }
+        70% {
+          transform: translateX(-2px)
+        }
+        100% {
+          transform: translateX(0)
+        }
+      }
+    }
+    
+    .circlered {
       stroke-dashoffset: 0;
       opacity: 1;
     }
