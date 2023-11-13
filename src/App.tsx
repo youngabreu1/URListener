@@ -11,6 +11,7 @@ type Stream =
     }
 
 type PromiseStream = {
+    id: number,
     name: string,
     url: string,
     isActive: boolean
@@ -44,6 +45,7 @@ const App = () => {
         }
 
     ];
+    const [isPlaying, setIsPlaying] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
     const [loadingMusic, setLoadingMusic] = useState<boolean>(false);
     const [stream, setStream] = useState<PromiseStream[]>([
@@ -66,6 +68,7 @@ const App = () => {
 
                 sound.once('loaderror', () => {
                     let promiseError: PromiseStream = {
+                        id: item.id,
                         name: item.description,
                         url: item.url,
                         isActive: false
@@ -74,7 +77,8 @@ const App = () => {
                 });
 
                 sound.once('load', () => {
-                    let promiseTop: formattedObject = ({
+                    let promiseTop: PromiseStream = ({
+                        id: item.id,
                         name: item.description,
                         url: item.url,
                         isActive: true
@@ -93,10 +97,11 @@ const App = () => {
     };
 
 
-    function playSound(url: string) {
+
+    function playSound(item: PromiseStream) {
         setLoadingMusic(true)
         const sound = new Howl({
-            src: [url],
+            src: [item.url],
             format: ['mp3', 'ogg', 'wav'],
             html5: true
         });
