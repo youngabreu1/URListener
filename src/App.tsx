@@ -54,12 +54,6 @@ const App = () => {
         setLoading(true)
         const streamList = audioStreams.map((item): Promise<PromiseStream> => {
             return new Promise(async (resolve) => {
-                type formattedObject = {
-                    name: string;
-                    url: string;
-                    isActive: boolean
-                }
-
                 const sound = new Howl({
                     src: [item.url],
                     format: ['mp3', 'ogg', 'wav'],
@@ -158,9 +152,49 @@ const App = () => {
         )
     }
 
+    const PlayButton: React.FC = () => {
+
+        return (
+            <div className='container'>
+                <div className='playBut'>
+                    <svg version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
+                        x="0px" y="0px" width="35px" height="35px" viewBox="0 0 213.7 213.7" enable-background="new 0 0 213.7 213.7">
+
+                        <polygon className='triangle' id="XMLID_18_" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+73.5,62.5 148.5,105.8 73.5,149.1 "/>
+
+                        <circle className='circle' id="XMLID_17_" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="106.8" cy="106.8" r="103.3" />
+                    </svg>
+
+                </div>
+            </div>)
+
+    }
+
+    const StopButton: React.FC = () => {
+
+        return (
+            <div className='containerred'>
+                <div className='playButred'>
+                    <svg version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
+                        x="0px" y="0px" width="35px" height="35px" viewBox="0 0 213.7 213.7" enable-background="new 0 0 213.7 213.7">
+
+                        <polygon className='trianglered' id="XMLID_18_" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+73.5,62.5 148.5,105.8 73.5,149.1 "/>
+
+                        <circle className='circlered' id="XMLID_17_" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="106.8" cy="106.8" r="103.3" />
+                    </svg>
+
+                </div>
+            </div>)
+
+    }
+
     return (
         <div style={{ display: 'flex', height: '100vh', width: '100vw', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-            
+
             <div>
                 <h1>Teste de Streams de Áudio</h1>
             </div>
@@ -177,7 +211,7 @@ const App = () => {
                                     {
                                         item.isActive && loading == false
                                             ?
-                                            <div className="activeLoad" style={{ padding: ' 10px'}}>
+                                            <div className="activeLoad" style={{ padding: ' 10px' }}>
 
                                             </div>
                                             :
@@ -185,34 +219,34 @@ const App = () => {
                                     }
                                     <div>
                                         {
-                                            loading == false ?
-                                                item.name :
-                                                loading
+                                            loading == false &&
+                                            item.name
                                         }
                                     </div>
                                 </div>
 
-                                <div>
-                                    <div className='container' onClick={() => playSound(item.url)} >
-                                        <a href='#' className='playBut'>
+                                <div >
+                                    {
+                                        isPlaying == item.id
+                                            ?
+                                            <div onClick={() => stopSound(item)}>
+                                                <PlayButton />
+                                                {
+                                                    isPlaying==0 
+                                                    &&
+                                                    <StopButton />
+                                                }
+                                            </div>
+                                            :
+                                            item.isActive &&
+                                            <div onClick={() => playSound(item)}>
+                                                <StopButton />
+                                            </div>
+                                    }
 
 
-                                            <svg version="1.1"
-                                                xmlns="http://www.w3.org/2000/svg" xmlns: xlink="http://www.w3.org/1999/xlink" xmlns: a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-                                                x="0px" y="0px" width="35px" height="35px" viewBox="0 0 213.7 213.7" enable-background="new 0 0 213.7 213.7"
-                                                xml: space="preserve">
-
-                                                <polygon className='triangle' id="XMLID_18_" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	73.5,62.5 148.5,105.8 73.5,149.1 "/>
-
-                                                <circle className='circle' id="XMLID_17_" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="106.8" cy="106.8" r="103.3" />
-                                            </svg>
-
-
-
-                                        </a>
-                                    </div>
                                 </div>
+
                             </div>)
                     })}
                 </div>
